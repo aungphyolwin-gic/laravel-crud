@@ -39,6 +39,15 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         // return $request;
+
+        // $request->validate([
+        //     'name'=>'required',
+        //     'price'=>['required','numeric'],
+        //     'size' => 'required',
+        //     'quantity' => 'required'
+
+        // ]);
+
         $product = new Product();
         $product->name = $request->name;
         $product->price = $request->price;
@@ -56,7 +65,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('product.detail',compact('product'));
     }
 
     /**
@@ -79,12 +88,19 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        // $request->validate([
+        //     'name'=>'filled',
+        //     'price'=>['filled','numeric'],
+        //     'size'=>'filled',
+        //     'quantity'=>['filled','integer']
+        // ]);
+
         $product->name = $request->name;
         $product->price = $request->price;
         $product->size = $request->size;
         $product->quantity = $request->quantity;
         $product->update();
-        return redirect()->route("product.index");   
+        return redirect()->route("product.index");
     }
 
     /**
